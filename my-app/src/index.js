@@ -14,7 +14,7 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1300,
     height: 600,
-    title: 'Elvan Perde',
+    title: 'Installment Tracker',
   });
   mainWindow.setMenu(null);
 

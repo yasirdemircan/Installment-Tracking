@@ -1,8 +1,8 @@
 {
-  "name": "ElvanPerde",
-  "productName": "ElvanPerde",
+  "name": "Installment-Tracker",
+  "productName": "Installment-Tracker",
   "version": "1.0.0",
-  "description": "Elvan Perde müşteri takip yazılımı",
+  "description": "Installment tracking application ",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -12,7 +12,7 @@
     "lint": "eslint src --color"
   },
   "keywords": [],
-  "author": "Yasir",
+  "author": "Yasir Demircan",
   "license": "MIT",
   "config": {
     "forge": {
@@ -33,7 +33,7 @@
         "icon":"window.png"
       },
       "electronWinstallerConfig": {
-        "name": "Elvan_Perde"
+        "name": "Installment-Tracker"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
@@ -43,7 +43,7 @@
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "Elvan_Perde"
+        "name": "Installment-Tracker"
       }
     }
   },
