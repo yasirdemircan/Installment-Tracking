@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="splash.css">
+</head>
+<body onload="addanim()">
+
+<!-- The parent component -->
+<div class="curtain">
+	
+  <!-- The component wrapper -->
+  <div class="curtain__wrapper">
+    
+    <!-- The left curtain panel -->
+    <div id="leftpanel" class="curtain__panel curtain__panel--left">
+
+    </div> <!-- curtain__panel -->
+    
+    <!-- The prize behind the curtain panels -->
+   <!-- <div class="curtain__prize">
+<center><h1 style="position: relative; margin-top: %50">Elvan Perde</h1></center>
+    </div>--> <!-- curtain__prize -->
+    
+    <!-- The right curtain panel -->
+    <div id="rightpanel" class="curtain__panel curtain__panel--right">
+	    
+    </div> <!-- curtain__panel -->
+    
+  </div> <!-- curtain__wrapper -->
+
+</div> <!-- curtain -->
+
+</body>
+    <script>
+    
+    function addanim(){
+        
+        document.getElementById("leftpanel").className = document.getElementById("leftpanel").className +" animation-target2"
+        document.getElementById("rightpanel").className = document.getElementById("rightpanel").className +" animation-target"
+        setTimeout(function(){window.location = '../src/app.html';},3000)
+    }
+    
+    
+    </script>
+</html>

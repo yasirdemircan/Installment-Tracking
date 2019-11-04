@@ -1,0 +1,12 @@
+#logocontainer{
+  visibility: visible;
+    color: red;
+    
+}
+#logo{
+    font-family: 'Great Vibes', cursive;
+}
+#legals{
+   visibility: visible;
+    text-align: center;
+}

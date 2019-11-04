@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Installment Tracking Application</title>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/alertify.css">
+    <link rel="stylesheet" href="css/themes/default.css">
+    <link href="fontface.css" rel="stylesheet">
+    <link href="awesomplete.css" rel="stylesheet">
+    <link href="print.css">
+    <link rel="stylesheet" href="credits.css">
+  
+</head>
+
+<body role="document" id="body" class="" style="background-color:blanchedalmond">
+
+    <nav class="navbar navbar-light navbar-fixed-top" id="navbr" style="background-color: #FFFFFF;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <b class="navbar-brand" href="#" style="font-family: 'Great Vibes', cursive; color: red!important;">Installment Tracking</b>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul id="menulist" class="nav navbar-nav">
+                    <li id="müsterieklemenu" class="active">
+                        <a href="#müsteriekle">Add Customer</a>
+                    </li>
+                    <li id="müsterimenu" class="">
+                        <a href="#müsteri">Customer Details</a>
+                    </li>
+                    <li id="thesapmenu">
+                        <a href="#thesap">Installments</a>
+                    </li>
+                    <li id="kasamenu">
+                        <a href="#kasa">Cash Register</a>
+                    </li>
+                    <li id="bildirimmenu">
+                        <a href="#bildirim">Notifications</a>
+                    </li>
+                    <li id="ayarlarmenu">
+                        <a href="#ayarlar">Settings</a>
+                    </li>
+                    <li id="geçmişmenu">
+                        <a href="#geçmiş">Cash Register History</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <div id="div1">
+        <h4 class="">Customer Name/Surname</h4>
+        <input type="text" id="adsoyad" class="form-control">
+        <h4>Customer Adress</h4>
+        <input type="text" id="adres" class="form-control">
+        <h4>Phone Number</h4>
+        <input type="text" id="telno" class="form-control">
+        <h4>Product Price</h4>
+        <input type="text" id="fiyat" class="form-control">
+        <h4>Installment Count</h4>
+        <input type="text" id="taksit" class="form-control">
+        <h4>Starting Date</h4>
+        <input type="date" id="taksitstart" class="form-control">
+        <h4>Direct Cash Amount</h4>
+        <input type="text" id="peşinat" value="0" class="form-control">
+
+        <button type="button" onclick="addCust()" class="btn btn-primary btn-block">Save Customer</button>
+    </div>
+    <div id="div2" style="display: none">
+        <input type="text" id="detayisim" placeholder="Search Customer" class="form-control">
+        <button type="button" id="detaybuton" onclick="getCustomer()" class="btn btn-primary btn-block">Details</button>
+        <button type="button" id="yazdırbuton" onclick="printDoc()" class="btn btn-warning btn-block">Print</button>
+        <div id="print">
+            <div id="logocontainer" style="display: none">
+                <h1 id="logo">Company Name Here!</h1>
+            </div>
+            <div id="custDetail"></div>
+            <div id="legals" style="display: none">
+                <h4>Manager Name: ...........</h4>
+
+                <h4>Signature: ...........</h4>
+
+                <h4 id="printdate"></h4>
+
+                <h4>Seal</h4>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="div3" style="display: none">
+        <input type="text" class="form-control" id="taksitisim" placeholder="Customer Name">
+        <button type="button" onclick="taksit()" class="btn btn-block btn-primary">Calculate</button>
+
+
+        <div class="panel panel-warning">
+            <div class="panel-heading text-center">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#panels2" href="#collapse10">
+                        <h5>Reformat Installments</h5>
+                    </a>
+                </h4>
+            </div>
+
+            <div id="collapse10" class="panel-collapse collapse">
+                <input type="number" placeholder="Remaining Amount" id="yapımiktar" class="form-control">
+                <input type="number" placeholder="Installment Count" id="yapıtaksit" class="form-control">
+                <input type="date" id="yapıtarih" placeholder="Starting Date" class="form-control">
+                <button type="button" onclick="yapılandır()" class="btn btn-block btn-warning">Reformat</button>
+            </div>
+        </div>
+
+        <div class="well well-lg" style="background-color: lightblue;!important">
+            <h4 id="toplamdisplay" style="display:inline;margin-right:50px; color:blue;" class=""></h4>
+            <h4 id="ödenendisplay" class="" style="display:inline;margin-right:50px; color:green;"></h4>
+            <h4 id="kalandisplay" style="display:inline; color:red;"></h4>
+        </div>
+        <div id="taksitdiv">
+
+
+
+        </div>
+
+    </div>
+    <div id="div4" style="display: none">
+        <div class="well well-sm text-center" style="margin-top:-20px">
+            <h5 id="kasatarihi">Cash Register Date</h5>
+            <h2 id="kasatoplamı">Cash Register Summary</h2>
+        </div>
+        <div class="panel-group" id="panels1">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#panels1" href="#collapse1">
+                            <h3>Incomes</h3>
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div id="girdidiv" class="panel-body" style="color:green;">
+                        <table class="table" id="girditable"></table>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#panels1" href="#collapse2">
+                            <h3>Expenses</h3>
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div id="çıktıdiv" class="panel-body" style="color:red;">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 class="text-left">Record Expense</h3>
+        <input type="text" class="form-control input-lg" id="çıktıisim" placeholder="Expense Type" style="margin-bottom:20px;margin-top:10px">
+        <input type="text" class="form-control input-lg" id="çıktıdeğer" placeholder="Expense Amount" style="margin-bottom:20px">
+        <button type="button" class="btn btn-danger" onclick="kasaçıktısı()" style="position:relative;left:45%">Save Expense</button>
+        <h3 class="text-left">Direct Cash Sale</h3>
+        <input type="text" class="form-control input-lg" id="peşinisim" placeholder="Sale Detail" style="margin-bottom:20px;margin-top:10px">
+        <input type="text" class="form-control input-lg" id="peşindeğer" placeholder="Sale Amount" style="margin-bottom:20px">
+        <button type="button" class="btn btn-primary" onclick="peşinsatış()" style="position:relative;left:45%">Sold</button>
+
+    </div>
+    <div id="div5" style="display: none">
+
+    </div>
+    <div id="div6" style="display: none">
+
+        <div class="panel-group" id="panels2">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#panels2" href="#collapse3">
+                            <h3>Remove Customer</h3>
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div id="girdidiv" class="panel-body">
+                        <table class="table" id="silmediv"></table>
+                        <h4 class="">Remove Customer</h4>
+                        <input type="text" id="userdelete" class="form-control">
+                        <button type="button" onclick="sil()" class="btn btn-danger btn-block">Remove</button>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#panels2" href="#collapse4">
+                            <h3>Backup/Restore</h3>
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div id="backupdiv" class="panel-body">
+                        <button type="button" onclick="filesave()" class="btn btn-warning btn-block">Backup</button>
+                        <button type="button" onclick="restore()" class="btn btn-primary btn-block">Restore</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#panels2" href="#collapse5">
+                            <h3>Reset Cash Register</h3>
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapse5" class="panel-collapse collapse">
+                    <div id="kasaresetdiv" class="panel-body">
+                        <button type="button" onclick="kasaGeçmişi()" class="btn btn-danger btn-block">Reset</button>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#panels2" href="#collapse6">
+                            <h3>Reset Application</h3>
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapse6" class="panel-collapse collapse">
+                    <div id="resetdiv" class="panel-body">
+                        <button type="button" onclick="localforage.clear().then(alertify.success('Uygulama Sıfırlandı'));localStorage.clear();" class="btn btn-danger btn-block">Reset Application</button>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#panels2" href="#collapse7">
+                            <h3>Change Cash Register Password</h3>
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapse7" class="panel-collapse collapse">
+                    <div id="passchangediv" class="panel-body">
+                        <input type="text" id="oldpass" placeholder="Old Password" class="form-control">
+                        <input type="text" id="newpass" placeholder="New Password" class="form-control">
+                        <button type="button" onclick="changePass()" class="btn btn-warning btn-block">Change Password</button>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#panels2" href="#collapse9">
+                            <h3>Colors</h3>
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapse9" class="panel-collapse collapse">
+                    <div id="colorsdiv" class="panel-body">
+                        <div id="colors" class="">
+                            <div style="align-content: center">
+                                <input type="color" id="navRenk" name="color" value="#e66465" onchange="navRenk()" />
+                                <label for="navRenk">Head Menu Color</label>
+                            </div>
+                            <div style="align-content: center">
+                                <input type="color" id="bodyRenk" name="color" value="#e66465" onchange="bodyRenk()" />
+                                <label for="bodyRenk">App Body Color</label>
+                            </div>
+                            <button type="button" onclick="localStorage.clear();location.reload()" class="btn btn-primary btn-block">Reset Colors</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#panels2" href="#collapse8">
+                            <h3 onclick="document.getElementById('credits').className='credits'">About</h3>
+                        </a>
+                    </h4>
+                </div>
+
+                <div id="collapse8" class="panel-collapse collapse">
+                    <div id="creditsdiv" class="panel-body">
+                        <div id="credits" class="" style="text-align: center">
+                            <h4 style="font-weight: bold">Installment Tracker v1.0.0</h4>
+                            <h4>Yasir Demircan</h4>
+                            <h4>Email: yasirdemircan@gmail.com</h4>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+
+    </div>
+    <div id="div7" style="display: none">
+        <input type="date" id="tarih1" placeholder="Starting Date (Included)" class="form-control">
+        <input type="date" id="tarih2" placeholder="Finish Date (Included)" class="form-control">
+        <button type="button" onclick="sortMonth()" class="btn btn-warning btn-block">Cash Register History</button>
+        <h3 style="color: blue" id="kasanet"></h3>
+
+        <h3 style="color: green" id="gelirtoplam"></h3>
+        <h3 style="color: red" id="gidertoplam"></h3>
+        <center>
+            <h3>-----Incomes-----</h3>
+            <div style="color: green" id="geçmişgelir"></div>
+            <h3>-----Expenses-----</h3>
+            <div style="color: red" id="geçmişgider"></div>
+        </center>
+
+    </div>
+
+
+    <!-- Imported Libraries -->
+    <script>
+        var alertify = require('./alertify.js');
+
+    </script>
+    <script>
+        window.$ = window.jQuery = require('./assets/js/jquery.min.js');
+
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+    <script src="date/core.js"></script>
+    <script src="date/datetr.js"></script>
+    <script src="date/parser.js"></script>
+    <script src="date/sugarpak.js"></script>
+
+    <!--Application Libraries -->
+    <script src="system/main.js"></script>
+    <script src="system/onload.js"></script>
+    <script src="system/autocomplete.js"></script>
+    <script src="system/navigation.js"></script>
+    <script src="system/notification.js"></script>
+    <script src="system/receipt.js"></script>
+    <script src="system/backup-restore.js"></script>
+    <script src="system/syncronizer.js"></script>
+    <script src="system/registerhistory.js"></script>
+    <script src="system/debug.js"></script>
+    <script src="system/color.js"></script>
+
+    <!-- Standard Libraries -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="localforage.min.js"></script>
+    <script src="awesomplete.js"></script>
+    <script src="print.min.js"></script>
+
+</body>
+
+</html>
